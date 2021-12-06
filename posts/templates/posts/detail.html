@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ post.titulo }} ({{ post.data }}
+{% endblock title %}
+
+{% block content %}
+<h2>Titulo: {{ post.titulo}}</h2>
+<h5>postado em: ({{ post.data|date }}) </h5>
+
+
+<section>
+    <header>
+        <h3>Categorias</h3>
+    </header>
+    <ul>
+        {% if post.category_set.all %}
+        {% for category in post.category_set.all %}
+		<li>{{ category.nome }}</li>
+        {% endfor %}
+        {% else %}
+        <p>Ainda não existe nenhuma categoria associada a esse post.</p>
+        {% endif %}
+    </ul>
+
+    <hr>
+</section>
+
+
+
+
+
+<section class="dados-de-filme">
+
+    <ul>
+
+
+	{{ post.conteudo|safe }}
+        <li><a href="{% url 'posts:update' post.id %}">Editar</a></li>
+        <li><a href="{% url 'posts:delete' post.id %}">Apagar</a></li>
+    </ul>
+</section>
+
+<hr>
+
+<section>
+    <header>
+        <h3>Comentários</h3>
+    </header>
+    <ul>
+        {% if post.comment_set.all %}
+        {% for comment in post.comment_set.all|dictsort:"data" %}
+        <figure>
+            <blockquote>
+                "{{ comment.texto }}"
+            </blockquote>
+            <figcaption>—{{ comment.autor }} ({{ comment.data|date }})
+        </figure>
+        {% endfor %}
+        {% else %}
+        <p>Ainda não existe nenhum comentário para esse filme.</p>
+        {% endif %}
+    </ul>
+
+    <hr>
+
+    <a href="{% url 'posts:comment' post.pk %}"><button>Publique um comentário para esse Post</button></a>
+</section>
+
+
+{% endblock content %}

@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Todos as categorias</h2>
+
+{% if category_list %}
+<section class="lista-de-cards">
+    {% for category in category_list %}
+    <article class="card">
+	<b><a href="{% url 'posts:list_posts_per_category' category.id %}">{{ category.nome }}</a></b>
+	<p>{{category.descrição}}</p>
+	
+    </article>
+    {% endfor %}
+</section>
+{% else %}
+<p>Não foi encontrado nenhum filme.</p>
+{% endif %}
+
+
+{% endblock content %}

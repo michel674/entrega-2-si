@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Categoria: "{{category.nome}}"</h2>
+<h3>Descrição:</h3>
+<p>{{category.descrição}}</p>
+
+<h3>Lista de posts associados à categoria:<h3>
+{% if category.posts.all %}
+<section class="lista-de-cards">
+    {% for post in category.posts.all %}
+    <article class="card">
+	<small>({{ post.data|date }})</small></br>
+        <a href="{% url 'posts:detail' post.id %}">{{ post.titulo }}</a>
+    </article>
+    {% endfor %}
+</section>
+{% else %}
+<p>Não foi encontrado nenhum post associado a essa categoria.</p>
+{% endif %}
+
+{% endblock content %}

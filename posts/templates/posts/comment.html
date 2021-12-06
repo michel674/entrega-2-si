@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Comentar Post {{ post.titulo }} ({{ post.data|date }})</h2>
+
+<form action="{% url 'posts:comment' post.id %}" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Postar Resenha</button>
+</form>
+
+<form action="{% url 'posts:comment' post.id %}" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Postar Resenha</button>
+</form>
+
+<p><a href="{% url 'posts:detail' post.id %}">Voltar para a página do filme</a></p>
+{% endblock content %}
